@@ -3,7 +3,7 @@ import { Grid, Button } from 'semantic-ui-react'
 import EventList from '../EventList/EventList'
 import EventForm from '../EventForm/EventForm'
 
-const eventsDashboard = [
+const initialState = [
   {
     id: '1',
     title: 'Trip to Tower of London',
@@ -55,13 +55,9 @@ const eventsDashboard = [
 ]
 
 class EventDashboard extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      events: eventsDashboard,
-      isOpen: false
-    }
+  state = {
+    events: initialState,
+    isOpen: false
   }
 
   handleFormOpen = () => {
