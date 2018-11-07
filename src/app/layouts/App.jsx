@@ -10,6 +10,8 @@ import SettingsDashboard from '../../features/user/Settings/SettingsDashboard'
 import EventForm from '../../features/event/EventForm/EventForm'
 import HomePage from '../../features/home/HomePage'
 
+import TestArea from '../../features/testarea/TestComponent'
+
 class App extends Component {
   render() {
     return (
@@ -31,6 +33,7 @@ class App extends Component {
                   <Route path='/profile/:id' component={UserDetailed} />
                   <Route path='/settings' component={SettingsDashboard} />
                   <Route path='/createEvent' component={EventForm} />
+                  <Route path='/test' component={TestArea} />
                 </Switch>
               </Container>
             </div>
