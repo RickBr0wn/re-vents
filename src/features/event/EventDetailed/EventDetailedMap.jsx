@@ -1,7 +1,7 @@
 import React from 'react'
 import { Segment, Icon } from 'semantic-ui-react'
 import GoogleMapReact from 'google-map-react'
-import config from '../../../app/common/config'
+import googleAPI from '../../../app/API/googleAPI'
 
 const EventDetailedMap = ({lat, lng}) => {
   const center = [lat, lng]
@@ -12,7 +12,7 @@ const EventDetailedMap = ({lat, lng}) => {
   return (
     <Segment attached="bottom" style={{ padding: 0 }}>
       <div style={{ height: '300px', width: '100%' }}>
-        <GoogleMapReact bootstrapURLKeys={{ key: config.key }} defaultCenter={center} defaultZoom={zoom}>
+        <GoogleMapReact bootstrapURLKeys={{ key: googleAPI }} defaultCenter={center} defaultZoom={zoom}>
           <Marker lat={lat} lng={lng} />
         </GoogleMapReact>
       </div>

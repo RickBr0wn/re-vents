@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { incrementCounter, decrementCounter } from './testActions'
-import { Button, Icon } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
-import GoogleMapReact from 'google-map-react'
+import { openModal } from '../modals/modalActions'
 
 class TestComponent extends Component {
   static defaultProps = {
@@ -33,7 +33,7 @@ class TestComponent extends Component {
   handleScriptLoad = () => this.setState({ scriptLoaded: true })
 
   render() {
-    const { incrementCounter, decrementCounter, data } = this.props
+    const { incrementCounter, decrementCounter, data, openModal } = this.props
     const inputProps = {
       value: this.state.address,
       onChange: this.onChange,
@@ -45,17 +45,14 @@ class TestComponent extends Component {
         <h3>The answer is {data}</h3>
         <Button onClick={incrementCounter} color="green" content="Increment" />
         <Button onClick={decrementCounter} color="red" content="Decrement" />
+        <Button onClick={() => openModal('TestModal', { data: 42 })} color="teal" content="Open Modal" />
         <br /><br />
         <form onSubmit={this.handleFormSubmit}>
           {this.state.scriptLoaded &&
             <PlacesAutocomplete inputProps={inputProps} />}
           <button type="submit">Submit</button>
         </form>
-        <div style={{ height: '300px', width: '100%' }}>
-          <GoogleMapReact bootstrapURLKeys={{ key: "AIzaSyDQnoSAx8bz9JgfF_KgwQFIYwQwjtx2L5w" }} defaultCenter={this.props.center} defaultZoom={this.props.zoom}>
-            <Marker lat={59.955413} lng={30.337844} text={'Kreyser Avrora'}/>
-          </GoogleMapReact>
-        </div>
+        
       </div>
     )
   }
@@ -67,9 +64,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   incrementCounter,
-  decrementCounter
+  decrementCounter,
+  openModal
 }
 
-const Marker = () => <Icon name="marker" size="big" color="red" />
+// const Marker = () => <Icon name="marker" size="big" color="red" />
 
 export default connect(mapStateToProps, mapDispatchToProps)(TestComponent)
