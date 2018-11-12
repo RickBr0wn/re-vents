@@ -5,8 +5,7 @@ import { NavLink, Link, withRouter } from 'react-router-dom'
 import SignedOutMenu from '../Menus/SignedOutMenu'
 import SignedInMenu from '../Menus/SignedInMenu'
 import { openModal } from '../../modals/modalActions'
-import { logout } from '../../auth/authActions'
-import { withFirebase } from 'react-redux-firebase';
+import { withFirebase } from 'react-redux-firebase'
 
 class Navbar extends Component {
   handleSignIn = () => {
@@ -56,8 +55,7 @@ const mapStateToProps = state => ({
 })
 
 const mapActionsToProps = {
-  openModal,
-  logout
+  openModal
 }
 
 export default withRouter(withFirebase(connect(mapStateToProps, mapActionsToProps)(Navbar)))
