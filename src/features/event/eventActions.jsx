@@ -1,7 +1,7 @@
 import { CREATE_EVENT, DELETE_EVENT, UPDATE_EVENT, FETCH_EVENTS } from './eventConstants'
 import { asyncActionStart, asyncActionFinish, asyncActionError } from '../async/asyncActions'
 import { fetchSampleData } from '../../app/data/mockAPI'
-import { toastr } from 'react-redux-toastr';
+import { toastr } from 'react-redux-toastr'
 
 export const fetchEvents = events => {
   return {
