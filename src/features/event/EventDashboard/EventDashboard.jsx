@@ -13,8 +13,9 @@ class EventDashboard extends Component {
   }
 
   render() {
+    console.log(this.props.events)
     const { events, loading } = this.props
-    if(loading) return <LoadingComponent inverted={true} />
+    if (loading) return <LoadingComponent inverted={true} />
     return (
       <Grid>
         <Grid.Column width={10}>
@@ -30,11 +31,14 @@ class EventDashboard extends Component {
 
 const mapStateToProps = state => ({
   events: state.firestore.ordered.events,
-  loading: state.async.loading
+  loading: state.async.loading,
 })
 
 const mapActionsToProps = {
-  deleteEvent
+  deleteEvent,
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(firestoreConnect([{ collection: 'events' }])(EventDashboard))
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(firestoreConnect([{ collection: 'events' }])(EventDashboard))
