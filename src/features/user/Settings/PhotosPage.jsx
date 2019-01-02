@@ -10,6 +10,8 @@ import {
   Icon,
 } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux'
 import Dropzone from 'react-dropzone'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
@@ -105,8 +107,17 @@ class PhotosPage extends Component {
                   src={this.state.cropResult}
                 />
                 <Button.Group>
-                  <Button onClick={this.uploadImage} style={{width: '100px'}} positive icon='check' />
-                  <Button onClick={this.handleCrop} style={{width: '100px'}} icon='close' />
+                  <Button
+                    onClick={this.uploadImage}
+                    style={{ width: '100px' }}
+                    positive
+                    icon="check"
+                  />
+                  <Button
+                    onClick={this.handleCrop}
+                    style={{ width: '100px' }}
+                    icon="close"
+                  />
                 </Button.Group>
               </div>
             )}
@@ -137,11 +148,30 @@ class PhotosPage extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  auth: state.firebase.auth,
+  profile: state.firebase.profile,
+})
+
 const mapDispatchToProps = {
   uploadProfileImage,
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
+const query = ({ auth }) => {
+  return [
+    {
+      collection: 'users',
+      doc: auth.uid,
+      subcollections: [{ collction: 'photos' }],
+      storeAs: 'photos',
+    },
+  ]
+}
+
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  firestoreConnect(auth => query(auth))
 )(PhotosPage)
